@@ -21,7 +21,7 @@ export const authMiddleware = (
 
   try {
     const secret = process.env.JWT_SECRET || 'secret';
-    const decoded = jwt.verify(token, secret) as { userId: string };
+    const decoded = jwt.verify(token, secret) as unknown as { userId: string };
     req.userId = decoded.userId;
     next();
   } catch (error) {

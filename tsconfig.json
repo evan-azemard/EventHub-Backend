@@ -38,6 +38,10 @@
     "jsx": "react-jsx",
     "isolatedModules": true,
     "moduleDetection": "force",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    
+    // Decorators
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   }
 }

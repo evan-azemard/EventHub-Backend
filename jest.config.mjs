@@ -11,5 +11,6 @@ export default {
             tsconfig: 'tsconfig.jest.json'
         }],
     },
-    testMatch: ['**/src/**/*.test.ts']
+    testMatch: ['**/src/**/*.test.ts'],
+    setupFiles: ['reflect-metadata']
 };

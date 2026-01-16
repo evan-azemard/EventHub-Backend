@@ -4,21 +4,30 @@ import type { EventRepositoryInterface } from '../../domain/interfaces/EventRepo
 export type CreateEventDTO = {
 title: string;
 description: string;
-startDate: Date;
+date: Date;
+capacity: number;
+price: number;
+categoryId: string;
+organizerId: string;
+venueId: string;
 }
+
 export class CreateEventUseCase {
 constructor(
 private readonly eventRepository: EventRepositoryInterface
 ) {}
+
 async execute(dto: CreateEventDTO): Promise<Event> {
-// Créer l'entité (les validations sont faites dans le constructeur)
 const event = new Event({
 title: dto.title,
 description: dto.description,
-startDate: new Date(dto.startDate),
-// Le reste des champs 
+date: new Date(dto.date),
+capacity: dto.capacity,
+price: dto.price,
+categoryId: dto.categoryId,
+organizerId: dto.organizerId,
+venueId: dto.venueId
 });
-// Sauvegarder via le repository
 return this.eventRepository.save(event);
 }
 }

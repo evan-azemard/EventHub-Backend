@@ -10,7 +10,12 @@ describe("CreateEventUseCase", () => {
   const validEventDTO: CreateEventDTO = {
     title: "Concert de Jazz",
     description: "Un super concert ",
-    startDate: new Date(Date.now() + 86400000),
+    date: new Date(Date.now() + 86400000),
+    capacity: 100,
+    price: 25.5,
+    categoryId: "category-1",
+    organizerId: "organizer-1",
+    venueId: "venue-1"
   };
   beforeEach(() => {
     repository = new InMemoryEventRepository();

@@ -1,0 +1,9 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: eventhub
+      POSTGRES_PASSWORD: eventhub_password
+      POSTGRES_DB: eventhub_db
+    ports:
+      - "5432:5432"

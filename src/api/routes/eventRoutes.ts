@@ -6,6 +6,7 @@ import { GetEventByIdUseCase } from '../../application/usecases/GetEventByIdUseC
 import { UpdateEventUseCase } from '../../application/usecases/UpdateEventUseCase';
 import { DeleteEventUseCase } from '../../application/usecases/DeleteEventUseCase';
 import { InMemoryEventRepository } from '../../infrastructure/repositories/InMemoryEventRepository';
+import { authMiddleware } from '../middlewares/authMiddleware';
 
 const router = Router();
 
@@ -25,10 +26,10 @@ const eventController = new EventController(
   deleteEventUseCase
 );
 
-router.post('/', (req, res, next) => eventController.create(req, res, next));
+router.post('/', authMiddleware, (req, res, next) => eventController.create(req, res, next));
 router.get('/', (req, res, next) => eventController.getAll(req, res, next));
 router.get('/:id', (req, res, next) => eventController.getById(req, res, next));
-router.put('/:id', (req, res, next) => eventController.update(req, res, next));
-router.delete('/:id', (req, res, next) => eventController.delete(req, res, next));
+router.put('/:id', authMiddleware, (req, res, next) => eventController.update(req, res, next));
+router.delete('/:id', authMiddleware, (req, res, next) => eventController.delete(req, res, next));
 
 export { router as eventRoute };

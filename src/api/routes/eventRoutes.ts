@@ -1,10 +1,34 @@
-// src/api/routes/eventRoutes.ts
 import { Router } from 'express';
+import { EventController } from '../controllers/eventController';
+import { CreateEventUseCase } from '../../application/usecases/CreateEventUseCase';
+import { GetAllEventsUseCase } from '../../application/usecases/GetAllEventsUseCase';
+import { GetEventByIdUseCase } from '../../application/usecases/GetEventByIdUseCase';
+import { UpdateEventUseCase } from '../../application/usecases/UpdateEventUseCase';
+import { DeleteEventUseCase } from '../../application/usecases/DeleteEventUseCase';
+import { InMemoryEventRepository } from '../../infrastructure/repositories/InMemoryEventRepository';
+
 const router = Router();
-// Routes REST pour les événements
-router.post('/', );
-router.get('/', );
-router.get('/:id', );
-router.put('/:id', );
-router.delete('/:id',);
-export {router as eventRoute};
+
+const eventRepository = new InMemoryEventRepository();
+
+const createEventUseCase = new CreateEventUseCase(eventRepository);
+const getAllEventsUseCase = new GetAllEventsUseCase(eventRepository);
+const getEventByIdUseCase = new GetEventByIdUseCase(eventRepository);
+const updateEventUseCase = new UpdateEventUseCase(eventRepository);
+const deleteEventUseCase = new DeleteEventUseCase(eventRepository);
+
+const eventController = new EventController(
+  createEventUseCase,
+  getAllEventsUseCase,
+  getEventByIdUseCase,
+  updateEventUseCase,
+  deleteEventUseCase
+);
+
+router.post('/', (req, res, next) => eventController.create(req, res, next));
+router.get('/', (req, res, next) => eventController.getAll(req, res, next));
+router.get('/:id', (req, res, next) => eventController.getById(req, res, next));
+router.put('/:id', (req, res, next) => eventController.update(req, res, next));
+router.delete('/:id', (req, res, next) => eventController.delete(req, res, next));
+
+export { router as eventRoute };

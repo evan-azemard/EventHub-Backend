@@ -41,8 +41,8 @@ describe("GetAllEventsUseCase", () => {
     const events = await useCase.execute();
 
     expect(events).toHaveLength(2);
-    expect(events[0].title).toBe("Concert 1");
-    expect(events[1].title).toBe("Concert 2");
+    expect(events[0]?.title).toBe("Concert 1");
+    expect(events[1]?.title).toBe("Concert 2");
   });
 
   it("should return empty array when no events", async () => {

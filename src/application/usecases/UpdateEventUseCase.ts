@@ -16,6 +16,10 @@ export class UpdateEventUseCase {
       throw new NotFoundError('Event not found');
     }
 
+    if (!existingEvent.id) {
+      throw new Error('Event must have an id');
+    }
+
     const updatedEvent = new Event({
       id: existingEvent.id,
       title: validatedData.title ?? existingEvent.title,
@@ -26,7 +30,7 @@ export class UpdateEventUseCase {
       categoryId: validatedData.categoryId ?? existingEvent.categoryId,
       organizerId: validatedData.organizerId ?? existingEvent.organizerId,
       venueId: validatedData.venueId ?? existingEvent.venueId,
-      createdAt: existingEvent.createdAt,
+      ...(existingEvent.createdAt && { createdAt: existingEvent.createdAt }),
       updatedAt: new Date()
     });
 

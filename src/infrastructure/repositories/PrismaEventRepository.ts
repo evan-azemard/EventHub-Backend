@@ -1,4 +1,6 @@
-import { PrismaClient } from '../../generated/prisma/client';
+import { PrismaClient } from '../../../generated/prisma/client';
+import { PrismaPg } from '@prisma/adapter-pg';
+import pg from 'pg';
 import { Event } from '../../domain/entities/Event';
 import type { EventRepositoryInterface } from '../../domain/interfaces/EventRepositoryInterface';
 
@@ -6,7 +8,9 @@ export class PrismaEventRepository implements EventRepositoryInterface {
   private prisma: PrismaClient;
 
   constructor() {
-    this.prisma = new PrismaClient();
+    const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL });
+    const adapter = new PrismaPg(pool);
+    this.prisma = new PrismaClient({ adapter });
   }
 
   async save(event: Event): Promise<Event> {
@@ -40,6 +44,8 @@ export class PrismaEventRepository implements EventRepositoryInterface {
   }
 
   async findById(id: string): Promise<Event | null> {
+    if (!id) return null;
+    
     const event = await this.prisma.event.findUnique({
       where: { id }
     });
@@ -83,6 +89,10 @@ export class PrismaEventRepository implements EventRepositoryInterface {
 
   async update(event: Event): Promise<Event> {
     const data = event.toObject();
+    if (!data.id) {
+      throw new Error('Event must have an id to be updated');
+    }
+    
     const updated = await this.prisma.event.update({
       where: { id: data.id },
       data: {
@@ -113,6 +123,10 @@ export class PrismaEventRepository implements EventRepositoryInterface {
   }
 
   async delete(id: string): Promise<void> {
+    if (!id) {
+      throw new Error('Event id is required for deletion');
+    }
+    
     await this.prisma.event.delete({
       where: { id }
     });

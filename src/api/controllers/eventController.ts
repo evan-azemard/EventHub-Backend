@@ -42,7 +42,18 @@ export class EventController {
 
   async getById(req: Request, res: Response, next: NextFunction) {
     try {
-      const event = await this.getEventByIdUseCase.execute(req.params.id);
+      const id = req.params.id;
+      if (typeof id !== 'string') {
+        res.status(400).json({
+          success: false,
+          error: {
+            code: 'INVALID_ID',
+            message: 'ID invalide'
+          }
+        });
+        return;
+      }
+      const event = await this.getEventByIdUseCase.execute(id);
       if (!event) {
         res.status(404).json({
           success: false,
@@ -65,7 +76,18 @@ export class EventController {
 
   async update(req: Request, res: Response, next: NextFunction) {
     try {
-      const event = await this.updateEventUseCase.execute(req.params.id, req.body);
+      const id = req.params.id;
+      if (typeof id !== 'string') {
+        res.status(400).json({
+          success: false,
+          error: {
+            code: 'INVALID_ID',
+            message: 'ID invalide'
+          }
+        });
+        return;
+      }
+      const event = await this.updateEventUseCase.execute(id, req.body);
       res.status(200).json({
         success: true,
         data: event.toObject(),
@@ -78,7 +100,18 @@ export class EventController {
 
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
-      await this.deleteEventUseCase.execute(req.params.id);
+      const id = req.params.id;
+      if (typeof id !== 'string') {
+        res.status(400).json({
+          success: false,
+          error: {
+            code: 'INVALID_ID',
+            message: 'ID invalide'
+          }
+        });
+        return;
+      }
+      await this.deleteEventUseCase.execute(id);
       res.status(204).send();
     } catch (error) {
       next(error);

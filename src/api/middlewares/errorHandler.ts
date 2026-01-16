@@ -39,7 +39,7 @@ export const errorHandler = (
       error: {
         code: 'VALIDATION_ERROR',
         message: 'Validation des données échouée',
-        details: error.errors
+        details: error.issues
       }
     });
     return;

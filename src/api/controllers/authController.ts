@@ -10,6 +10,7 @@ export class AuthController {
 
   async register(req: Request, res: Response, next: NextFunction) {
     try {
+      console.log('Request body:', req.body);
       const user = await this.registerUseCase.execute(req.body);
       res.status(201).json({
         success: true,

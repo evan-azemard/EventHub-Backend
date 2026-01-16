@@ -8,16 +8,15 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  password  String
-  name      String
-  role      String   @default("user")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  organizedEvents Event[]   @relation("Organizer")
+  id              String    @id @default(uuid())
+  email           String    @unique
+  password        String
+  name            String
+  role            String    @default("user")
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
   bookings        Booking[]
+  organizedEvents Event[]   @relation("Organizer")
   reviews         Review[]
 }
 
@@ -39,27 +38,23 @@ model Venue {
 }
 
 model Event {
-  id          String   @id @default(uuid())
+  id          String    @id @default(uuid())
   title       String
   description String
   date        DateTime
   capacity    Int
   price       Float
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
   categoryId  String
-  category    Category @relation(fields: [categoryId], references: [id])
-
   organizerId String
-  organizer   User   @relation("Organizer", fields: [organizerId], references: [id])
-
   venueId     String
-  venue       Venue  @relation(fields: [venueId], references: [id])
-
-  tickets  Ticket[]
-  bookings Booking[]
-  reviews  Review[]
+  bookings    Booking[]
+  category    Category  @relation(fields: [categoryId], references: [id])
+  organizer   User      @relation("Organizer", fields: [organizerId], references: [id])
+  venue       Venue     @relation(fields: [venueId], references: [id])
+  reviews     Review[]
+  tickets     Ticket[]
 }
 
 model Ticket {
@@ -67,9 +62,8 @@ model Ticket {
   type     String
   price    Float
   quantity Int
-
-  eventId String
-  event   Event  @relation(fields: [eventId], references: [id])
+  eventId  String
+  event    Event  @relation(fields: [eventId], references: [id])
 }
 
 model Booking {
@@ -77,12 +71,10 @@ model Booking {
   quantity  Int
   status    String   @default("pending")
   createdAt DateTime @default(now())
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
-
-  eventId String
-  event   Event  @relation(fields: [eventId], references: [id])
+  userId    String
+  eventId   String
+  event     Event    @relation(fields: [eventId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 model Review {
@@ -90,10 +82,8 @@ model Review {
   rating    Int
   comment   String?
   createdAt DateTime @default(now())
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
-
-  eventId String
-  event   Event  @relation(fields: [eventId], references: [id])
+  userId    String
+  eventId   String
+  event     Event    @relation(fields: [eventId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
 }

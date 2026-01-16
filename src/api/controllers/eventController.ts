@@ -16,6 +16,19 @@ export class EventController {
 
   async create(req: Request, res: Response, next: NextFunction) {
     try {
+      console.log('Event request body:', req.body);
+      console.log('Content-Type:', req.headers['content-type']);
+      
+      if (!req.body || Object.keys(req.body).length === 0) {
+        return res.status(400).json({
+          success: false,
+          error: {
+            code: 'MISSING_BODY',
+            message: 'Corps de la requête manquant ou vide. Vérifiez que Content-Type est application/json'
+          }
+        });
+      }
+      
       const event = await this.createEventUseCase.execute(req.body);
       res.status(201).json({
         success: true,

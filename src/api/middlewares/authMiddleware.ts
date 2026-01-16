@@ -20,7 +20,10 @@ export const authMiddleware = (
   const token = authHeader.split(' ')[1];
 
   try {
-    const secret = process.env.JWT_SECRET || 'secret';
+    const secret = process.env.JWT_SECRET;
+    if (!secret) {
+      throw new Error('JWT_SECRET not configured');
+    }
     const decoded = jwt.verify(token, secret) as unknown as { userId: string };
     req.userId = decoded.userId;
     next();

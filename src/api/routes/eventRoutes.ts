@@ -1,6 +1,5 @@
 // src/api/routes/eventRoutes.ts
 import { Router } from 'express';
-import { EventController } from '../controllers/EventController';
 const router = Router();
 // Routes REST pour les événements
 router.post('/', );

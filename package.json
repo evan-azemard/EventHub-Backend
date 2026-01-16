@@ -1,11 +1,10 @@
 {
   "name": "eventhubbackend",
   "version": "1.0.0",
-  "description": "��#\u0000 \u0000E\u0000v\u0000e\u0000n\u0000t\u0000H\u0000u\u0000b\u0000-\u0000B\u0000a\u0000c\u0000k\u0000e\u0000n\u0000d\u0000\r\u0000 \u0000",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "npx tsx src/api/server.ts",
+    "start": "nodemon --exec tsx src/api/server.ts",
     "test": "jest"
   },
   "author": "",
@@ -13,12 +12,16 @@
   "dependencies": {
     "@prisma/client": "^7.2.0",
     "express": "^5.2.1",
-    "prisma": "^7.2.0"
+    "nodemon": "^3.1.11",
+    "prisma": "^7.2.0",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
     "@types/node": "^25.0.9",
+    "@types/uuid": "^10.0.0",
+    "cross-env": "^10.1.0",
     "jest": "^30.2.0",
     "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",

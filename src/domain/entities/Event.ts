@@ -1,4 +1,9 @@
 export interface EventProps {
+title?: string;
+description?: string;
+startDate?: Date;
+createdAt?: Date;
+updatedAt?: Date;
 }
 
 export class Event {

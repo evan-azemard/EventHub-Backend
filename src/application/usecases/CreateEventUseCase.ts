@@ -1,11 +1,10 @@
-// src/application/usecases/CreateEventUseCase.ts
-import { Event, EventProps } from '../../domain/entities/Event';
-import { EventRepositoryInterface } from '../../domain/interfaces/EventRepositoryInterface';
-export interface CreateEventDTO {
+import { Event } from '../../domain/entities/Event';
+import type { EventRepositoryInterface } from '../../domain/interfaces/EventRepositoryInterface';
+
+export type CreateEventDTO = {
 title: string;
 description: string;
 startDate: Date;
-// Le reste des champs que vous avez 
 }
 export class CreateEventUseCase {
 constructor(

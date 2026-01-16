@@ -1,29 +1,21 @@
 import { Router } from 'express';
 import { EventController } from '../controllers/eventController';
+import { authMiddleware } from '../middlewares/authMiddleware';
+import { container } from '../../infrastructure/container/container';
 import { CreateEventUseCase } from '../../application/usecases/CreateEventUseCase';
 import { GetAllEventsUseCase } from '../../application/usecases/GetAllEventsUseCase';
 import { GetEventByIdUseCase } from '../../application/usecases/GetEventByIdUseCase';
 import { UpdateEventUseCase } from '../../application/usecases/UpdateEventUseCase';
 import { DeleteEventUseCase } from '../../application/usecases/DeleteEventUseCase';
-import { InMemoryEventRepository } from '../../infrastructure/repositories/InMemoryEventRepository';
-import { authMiddleware } from '../middlewares/authMiddleware';
 
 const router = Router();
 
-const eventRepository = new InMemoryEventRepository();
-
-const createEventUseCase = new CreateEventUseCase(eventRepository);
-const getAllEventsUseCase = new GetAllEventsUseCase(eventRepository);
-const getEventByIdUseCase = new GetEventByIdUseCase(eventRepository);
-const updateEventUseCase = new UpdateEventUseCase(eventRepository);
-const deleteEventUseCase = new DeleteEventUseCase(eventRepository);
-
 const eventController = new EventController(
-  createEventUseCase,
-  getAllEventsUseCase,
-  getEventByIdUseCase,
-  updateEventUseCase,
-  deleteEventUseCase
+  container.resolve<CreateEventUseCase>('CreateEventUseCase'),
+  container.resolve<GetAllEventsUseCase>('GetAllEventsUseCase'),
+  container.resolve<GetEventByIdUseCase>('GetEventByIdUseCase'),
+  container.resolve<UpdateEventUseCase>('UpdateEventUseCase'),
+  container.resolve<DeleteEventUseCase>('DeleteEventUseCase')
 );
 
 router.post('/', authMiddleware, (req, res, next) => eventController.create(req, res, next));

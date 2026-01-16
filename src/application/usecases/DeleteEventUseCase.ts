@@ -1,8 +1,11 @@
+import { injectable, inject } from 'tsyringe';
 import type { EventRepositoryInterface } from '../../domain/interfaces/EventRepositoryInterface';
 import { NotFoundError } from '../../api/errors/customErrors';
 
+@injectable()
 export class DeleteEventUseCase {
   constructor(
+    @inject('EventRepository')
     private readonly eventRepository: EventRepositoryInterface
   ) {}
 

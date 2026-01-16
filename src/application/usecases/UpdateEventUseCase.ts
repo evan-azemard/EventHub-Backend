@@ -1,10 +1,13 @@
+import { injectable, inject } from 'tsyringe';
 import { Event } from '../../domain/entities/Event';
 import type { EventRepositoryInterface } from '../../domain/interfaces/EventRepositoryInterface';
 import { UpdateEventDTO, UpdateEventSchema } from '../dtos/UpdateEventDTO';
 import { NotFoundError } from '../../api/errors/customErrors';
 
+@injectable()
 export class UpdateEventUseCase {
   constructor(
+    @inject('EventRepository')
     private readonly eventRepository: EventRepositoryInterface
   ) {}
 

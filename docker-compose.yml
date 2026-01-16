@@ -6,4 +6,4 @@ services:
       POSTGRES_PASSWORD: eventhub_password
       POSTGRES_DB: eventhub_db
     ports:
-      - "5432:5432"
+      - "5440:5432"

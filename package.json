@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "start": "nodemon --exec tsx src/api/server.ts",
-    "test": "jest"
+    "test": "jest",
+    "db:migrate": "prisma migrate dev",
+    "db:reset": "prisma migrate reset --force"
   },
   "author": "",
   "license": "ISC",

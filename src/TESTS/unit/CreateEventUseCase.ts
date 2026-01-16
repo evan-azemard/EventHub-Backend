@@ -2,8 +2,8 @@
 import {
   CreateEventUseCase,
   CreateEventDTO,
-} from "../../application/usecases/CreateEventUseCase";
-import { InMemoryEventRepository } from "../../infrastructure/repositories/InMemoryEventRepository";
+} from "../../application/usecases/CreateEventUseCase.js";
+import { InMemoryEventRepository } from "../../infrastructure/repositories/InMemoryEventRepository.js";
 describe("CreateEventUseCase", () => {
   let useCase: CreateEventUseCase;
   let repository: InMemoryEventRepository;

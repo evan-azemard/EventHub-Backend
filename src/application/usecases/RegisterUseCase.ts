@@ -1,7 +1,7 @@
 import { injectable, inject } from 'tsyringe';
 import bcrypt from 'bcrypt';
 import { User } from '../../domain/entities/User';
-import { UserRepositoryInterface } from '../../domain/interfaces/UserRepositoryInterface';
+import type { UserRepositoryInterface } from '../../domain/interfaces/UserRepositoryInterface';
 import { RegisterDTO } from '../dtos/RegisterDTO';
 
 @injectable()

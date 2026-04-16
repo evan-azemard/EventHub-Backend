@@ -1,3 +1,8 @@
+export interface OTPSettings {
+  secret: string | null;
+  enabled: boolean;
+}
+
 export interface UserProps {
   id?: string;
   email: string;
@@ -6,6 +11,8 @@ export interface UserProps {
   role?: string;
   createdAt?: Date;
   updatedAt?: Date;
+  otpSecret?: string | null;
+  otpEnabled?: number;
 }
 
 export class User {
@@ -67,6 +74,21 @@ export class User {
 
   get updatedAt(): Date | undefined {
     return this.props.updatedAt;
+  }
+
+  get otpSecret(): string | null | undefined {
+    return this.props.otpSecret;
+  }
+
+  get otpEnabled(): number | undefined {
+    return this.props.otpEnabled;
+  }
+
+  get otpSettings(): OTPSettings {
+    return {
+      secret: this.props.otpSecret ?? null,
+      enabled: (this.props.otpEnabled || 0) === 1
+    };
   }
 
   toObject(): UserProps {

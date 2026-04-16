@@ -5,11 +5,12 @@ description: string;
 date: Date;
 capacity: number;
 price: number;
-categoryId: string;
+categoryId?: string | undefined;
 organizerId: string;
-venueId: string;
-createdAt?: Date;
-updatedAt?: Date;
+venueId?: string | undefined;
+clickCount?: number | undefined;
+createdAt?: Date | undefined;
+updatedAt?: Date | undefined;
 }
 
 export class Event {
@@ -40,14 +41,8 @@ throw new Error('La capacité doit être supérieure à 0');
 if (props.price < 0) {
 throw new Error('Le prix ne peut pas être négatif');
 }
-if (!props.categoryId || props.categoryId.trim() === '') {
-throw new Error('La catégorie est obligatoire');
-}
 if (!props.organizerId || props.organizerId.trim() === '') {
 throw new Error('L\'organisateur est obligatoire');
-}
-if (!props.venueId || props.venueId.trim() === '') {
-throw new Error('Le lieu est obligatoire');
 }
 }
 
@@ -75,7 +70,7 @@ get price(): number {
 return this.props.price;
 }
 
-get categoryId(): string {
+get categoryId(): string | undefined {
 return this.props.categoryId;
 }
 
@@ -83,8 +78,12 @@ get organizerId(): string {
 return this.props.organizerId;
 }
 
-get venueId(): string {
+get venueId(): string | undefined {
 return this.props.venueId;
+}
+
+get clickCount(): number {
+return this.props.clickCount || 0;
 }
 
 get createdAt(): Date | undefined {

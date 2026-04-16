@@ -20,7 +20,7 @@ export class PrismaUserRepository implements UserRepositoryInterface {
         email: data.email,
         password: data.password,
         name: data.name,
-        role: data.role
+        role: data.role || 'user'
       }
     });
 
@@ -31,7 +31,9 @@ export class PrismaUserRepository implements UserRepositoryInterface {
       name: created.name,
       role: created.role,
       createdAt: created.createdAt,
-      updatedAt: created.updatedAt
+      updatedAt: created.updatedAt,
+      otpSecret: created.otpSecret,
+      otpEnabled: created.otpEnabled
     });
   }
 
@@ -51,7 +53,9 @@ export class PrismaUserRepository implements UserRepositoryInterface {
       name: user.name,
       role: user.role,
       createdAt: user.createdAt,
-      updatedAt: user.updatedAt
+      updatedAt: user.updatedAt,
+      otpSecret: user.otpSecret,
+      otpEnabled: user.otpEnabled
     });
   }
 
@@ -71,7 +75,9 @@ export class PrismaUserRepository implements UserRepositoryInterface {
       name: user.name,
       role: user.role,
       createdAt: user.createdAt,
-      updatedAt: user.updatedAt
+      updatedAt: user.updatedAt,
+      otpSecret: user.otpSecret,
+      otpEnabled: user.otpEnabled
     });
   }
 
@@ -87,7 +93,9 @@ export class PrismaUserRepository implements UserRepositoryInterface {
       name: user.name,
       role: user.role,
       createdAt: user.createdAt,
-      updatedAt: user.updatedAt
+      updatedAt: user.updatedAt,
+      otpSecret: user.otpSecret,
+      otpEnabled: user.otpEnabled
     }));
   }
 
@@ -103,7 +111,7 @@ export class PrismaUserRepository implements UserRepositoryInterface {
         email: data.email,
         password: data.password,
         name: data.name,
-        role: data.role
+        role: data.role || 'user'
       }
     });
 
@@ -114,7 +122,9 @@ export class PrismaUserRepository implements UserRepositoryInterface {
       name: updated.name,
       role: updated.role,
       createdAt: updated.createdAt,
-      updatedAt: updated.updatedAt
+      updatedAt: updated.updatedAt,
+      otpSecret: updated.otpSecret,
+      otpEnabled: updated.otpEnabled
     });
   }
 
@@ -126,5 +136,32 @@ export class PrismaUserRepository implements UserRepositoryInterface {
     await this.prisma.user.delete({
       where: { id }
     });
+  }
+
+  async updateOtp(id: string, otpSecret: string | null, otpEnabled: number): Promise<User> {
+    if (!id) {
+      throw new Error('User id is required for OTP update');
+    }
+
+    const updated = await this.prisma.user.update({
+      where: { id },
+      data: { otpSecret, otpEnabled }
+    });
+
+    return new User({
+      id: updated.id,
+      email: updated.email,
+      password: updated.password,
+      name: updated.name,
+      role: updated.role,
+      createdAt: updated.createdAt,
+      updatedAt: updated.updatedAt,
+      otpSecret: updated.otpSecret,
+      otpEnabled: updated.otpEnabled
+    });
+  }
+
+  async count(): Promise<number> {
+    return this.prisma.user.count();
   }
 }

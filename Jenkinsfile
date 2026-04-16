@@ -1,16 +1,16 @@
 pipeline {
     agent any
 
-    stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
+    tools {
+        nodejs "node" 
+    }
 
-        stage('Build') {
+    stages {
+        
+        stage('Setup PNPM') {
             steps {
-                echo 'Installation des dépendances...'
+                echo 'Installation de pnpm...'
+                sh 'npm install -g pnpm'
                 sh 'pnpm install'
             }
         }
@@ -22,7 +22,7 @@ pipeline {
             }
         }
 
-        stage('Deploy (Optionnel)') {
+        stage('Deploy') {
             steps {
                 echo 'Lancement de l’application...'
                 sh 'pnpm start'

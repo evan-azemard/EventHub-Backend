@@ -12,6 +12,8 @@ pipeline {
                         sh 'npm install -g pnpm'
                         
                         sh 'pnpm install'
+
+                        sh 'pnpm prisma generate'
                         
                         sh 'pnpm test'
 

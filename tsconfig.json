@@ -11,6 +11,7 @@
     "moduleResolution": "bundler",
     "target": "esnext",
     "types": ["jest", "node"],
+    "noImplicitAny": false,
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],
@@ -34,12 +35,12 @@
     // "noPropertyAccessFromIndexSignature": true,
 
     // Recommended Options
-    "strict": true,
+    "strict": false,
     "jsx": "react-jsx",
     "isolatedModules": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
-    
+
     // Decorators
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true

@@ -1,0 +1,13 @@
+import { Router } from 'express';
+import { TestController } from '../controllers/testController';
+import { container } from '../../infrastructure/container/container';
+import { UserRepositoryInterface } from '../../domain/interfaces/UserRepositoryInterface';
+
+const testRouter = Router();
+const testController = new TestController(
+  container.resolve<UserRepositoryInterface>('UserRepository')
+);
+
+testRouter.get('/users-emails', (req, res) => testController.getUsersEmails(req, res));
+
+export { testRouter };

@@ -8,6 +8,7 @@ import { eventRoute } from "./routes/eventRoutes";
 import { authRoute } from "./routes/authRoutes";
 import { swaggerDocument } from "./swagger";
 import { a2fRouter } from './routes/a2fRoutes';
+import { testRouter } from './routes/testRoutes';
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(responseMiddleware);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/api/a2f', a2fRouter);
+app.use('/api/test', testRouter);
 
 app.use('/api/auth', authRoute);
 app.use('/api/events', eventRoute);

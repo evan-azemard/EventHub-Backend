@@ -1,31 +1,30 @@
 pipeline {
     agent any
-
-    tools {
-        nodejs "node" 
-    }
-
+    
     stages {
         
-        stage('Setup PNPM') {
+        stage('Test & Build in Docker') {
             steps {
-                echo 'Installation de pnpm...'
-                sh 'npm install -g pnpm'
-                sh 'pnpm install'
-            }
-        }
+                script {
+                    docker.image('node:20').inside {
+                        echo 'Environnement Node.js'
+                        
+                        sh 'npm install -g pnpm'
+                        
+                        sh 'pnpm install'
+                        
+                        sh 'pnpm test'
 
-        stage('Test') {
-            steps {
-                echo 'Exécution des tests unitaires...'
-                sh 'pnpm test'
+                        sh 'pnpm build'
+                    }
+                }
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Lancement de l’application...'
-                sh 'pnpm start'
+                echo 'Déploiement en cours...'
+                sh 'docker compose up -d --build'
             }
         }
     }
@@ -33,6 +32,12 @@ pipeline {
     post {
         always {
             echo 'Pipeline terminé.'
+        }
+        success {
+            echo 'Félicitations ! Le code est stable et les tests passent.'
+        }
+        failure {
+            echo 'ALERTE : Les tests ont échoué, le déploiement a été annulé.'
         }
     }
 }

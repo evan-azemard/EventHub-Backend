@@ -1,0 +1,5 @@
+import 'dotenv/config';
+import '../api/middlewares/express.d';
+declare const server: import("node:http").Server<typeof import("node:http").IncomingMessage, typeof import("node:http").ServerResponse>;
+export default server;
+//# sourceMappingURL=server.d.ts.map

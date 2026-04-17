@@ -6,8 +6,8 @@ import { LoginDTO } from '../dtos/LoginDTO';
 import { UnauthorizedError } from '../../api/errors/customErrors';
 
 interface LoginResponse {
-  token: string;
-  userId: string;
+  token?: string;
+  userId?: string;
   email: string;
   name: string;
   requiresOtp?: boolean;

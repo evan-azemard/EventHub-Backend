@@ -7,7 +7,7 @@ services:
       POSTGRES_PASSWORD: eventhub_password
       POSTGRES_DB: eventhub_db
     ports:
-      - "5440:5432"
+      - "544:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
 

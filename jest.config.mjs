@@ -8,9 +8,11 @@ export default {
     transform: {
         '^.+\\.tsx?$': ['ts-jest', {
             useESM: true,
-            tsconfig: 'tsconfig.jest.json'
+            tsconfig: 'tsconfig.jest.json',
+            diagnostics: false,
         }],
     },
     testMatch: ['**/src/**/*.test.ts'],
-    setupFiles: ['reflect-metadata']
+    setupFiles: ['reflect-metadata'],
+    modulePathIgnorePatterns: ['<rootDir>/dist/'],
 };

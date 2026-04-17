@@ -9,7 +9,7 @@ export class PrismaUserRepository implements UserRepositoryInterface {
 
   constructor() {
     const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL });
-    const adapter = new PrismaPg(pool);
+    const adapter = new PrismaPg(pool as any);
     this.prisma = new PrismaClient({ adapter });
   }
 

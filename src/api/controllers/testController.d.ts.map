@@ -1,1 +1,0 @@
-{"version":3,"file":"testController.d.ts","sourceRoot":"","sources":["testController.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,QAAQ,EAAE,MAAM,SAAS,CAAC;AAC5C,OAAO,EAAE,uBAAuB,EAAE,MAAM,iDAAiD,CAAC;AAE1F,qBAAa,cAAc;IACb,OAAO,CAAC,cAAc;gBAAd,cAAc,EAAE,uBAAuB;IAErD,cAAc,CAAC,GAAG,EAAE,OAAO,EAAE,GAAG,EAAE,QAAQ;CAiBjD"}

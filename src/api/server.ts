@@ -1,3 +1,5 @@
+/// <reference path="./middlewares/express.d.ts" />
+
 import 'dotenv/config';
 import app from "./app.js";
 

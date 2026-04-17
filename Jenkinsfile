@@ -32,6 +32,8 @@ pipeline {
     post {
         always {
             echo 'Pipeline terminé.'
+            echo 'Nettoyage des ressources temporaires...'
+            sh 'docker image prune -f || true'
         }
         success {
             echo 'Félicitations ! Le code est stable et les tests passent.'

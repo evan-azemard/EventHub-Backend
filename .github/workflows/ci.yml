@@ -1,10 +1,12 @@
 name: EventHub CI
 
+# 1. On dit à GitHub Actions de se déclencher UNIQUEMENT quand tu pousses sur "uat"
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches: [ "uat" ]
+
+permissions:
+  contents: write
 
 jobs:
   build-and-test:
@@ -12,6 +14,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 #historique complet pour les merges
 
       - name: Install pnpm
         uses: pnpm/action-setup@v3
@@ -29,3 +33,17 @@ jobs:
 
       - name: Run Tests
         run: pnpm test
+
+      - name: Auto-merge uat vers main
+        if: success()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git fetch origin main
+          
+          git checkout main
+          
+          git merge origin/uat -m "Auto-merge de UAT vers main après tests réussis"
+          
+          git push origin main

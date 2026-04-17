@@ -1,6 +1,5 @@
 name: EventHub CI
 
-# 1. On dit à GitHub Actions de se déclencher UNIQUEMENT quand tu pousses sur "uat"
 on:
   push:
     branches: [ "uat" ]

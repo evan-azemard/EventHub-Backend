@@ -41,7 +41,7 @@ pipeline {
             echo 'Félicitations ! Le code est stable et les tests passent.'
         }
         failure {
-            echo 'ALERTE : Les tests ont échoué, le déploiement a été annulé.'
+            echo 'ALERTE : le déploiement a été annulé.'
         }
     }
 }

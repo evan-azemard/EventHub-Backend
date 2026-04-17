@@ -6,7 +6,7 @@ pipeline {
         stage('Test & Build in Docker') {
             steps {
                 script {
-                    docker.image('node:20').inside {
+                    docker.image('node:20').inside.('-u root') {
                         echo 'Environnement Node.js'
                         
                         sh 'npm install -g pnpm'

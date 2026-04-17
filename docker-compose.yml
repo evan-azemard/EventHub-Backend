@@ -19,14 +19,14 @@ services:
     ports:
       - "3001:3001"
     environment:
-      - DATABASE_URL="postgresql://eventhub:eventhub_password@localhost:5440/eventhub_db"
-      - JWT_SECRET="df8df9gh9h8j4j1j14j7r8q6xgfc6hfghJUjg6tdryg6fd3ghs9e9ty54ju3j33rzofuso5H5DGHokgdgry69"
+      - DATABASE_URL=postgresql://eventhub:eventhub_password@postgres:5432/eventhub_db
+      - JWT_SECRET=df8df9gh9h8j4j1j14j7r8q6xgfc6hfghJUjg6tdryg6fd3ghs9e9ty54ju3j33rzofuso5H5DGHokgdgry69
       - PORT=3001
-      - FRONTEND_URL="http://localhost:5173"
-      - APP_NAME="EventHub"
-      - POSTGRES_USER: eventhub
-      - POSTGRES_PASSWORD: eventhub_password
-      - POSTGRES_DB: eventhub_db
+      - FRONTEND_URL=http://localhost:5173
+      - APP_NAME=EventHub
+      - POSTGRES_USER=eventhub
+      - POSTGRES_PASSWORD=eventhub_password
+      - POSTGRES_DB=eventhub_db
     depends_on:
       - postgres
 

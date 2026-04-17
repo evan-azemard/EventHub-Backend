@@ -8,6 +8,7 @@ const testController = new TestController(
   container.resolve<UserRepositoryInterface>('UserRepository')
 );
 
+testRouter.get('/', (req, res) => res.json({ message: 'Test route is working!' }));
 testRouter.get('/users-emails', (req, res) => testController.getUsersEmails(req, res));
 
 export { testRouter };

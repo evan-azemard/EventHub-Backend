@@ -17,6 +17,9 @@ app.use(cors({
 app.use(cookieParser());
 app.use(express.json());
 app.use(responseMiddleware);
+app.get('/', (req, res) => {
+    res.json({ message: 'EventHub Backend is running!', status: 'OK' });
+});
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/a2f', a2fRouter);
 app.use('/api/test', testRouter);
